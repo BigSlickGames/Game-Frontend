@@ -39,11 +39,11 @@ function App() {
   return (
     <div style={{maxWidth: 900, margin: '4rem auto', fontFamily: 'Inter, system-ui, Arial', padding: '0 2rem'}}>
       <h1>Game Frontend</h1>
-      <p>Connected to backend at <code>http://localhost:3000</code></p>
-      
+      <p>Connected to Supabase database</p>
+
       <div style={{marginBottom: '2rem'}}>
-        <button 
-          onClick={fetchData} 
+        <button
+          onClick={fetchData}
           disabled={loading}
           style={{
             padding: '0.5rem 1rem',
@@ -57,9 +57,9 @@ function App() {
         >
           {loading ? 'Loading...' : 'Fetch Data'}
         </button>
-        
-        <button 
-          onClick={sendData} 
+
+        <button
+          onClick={sendData}
           disabled={loading}
           style={{
             padding: '0.5rem 1rem',
@@ -96,7 +96,7 @@ function App() {
           borderRadius: '4px',
           marginBottom: '1rem'
         }}>
-          <strong>Data from backend:</strong>
+          <strong>Data from database:</strong>
           <pre style={{marginTop: '0.5rem', fontSize: '0.9em'}}>
             {JSON.stringify(data, null, 2)}
           </pre>
@@ -106,10 +106,9 @@ function App() {
       <div style={{marginTop: '2rem', fontSize: '0.9em', color: '#666'}}>
         <h3>Instructions:</h3>
         <ol>
-          <li>Make sure your backend is running on port 3000</li>
-          <li>Start your backend with: <code>npm start</code> or <code>node server.js</code></li>
-          <li>Click "Fetch Data" to test GET requests</li>
-          <li>Click "Send Data" to test POST requests</li>
+          <li>Click "Fetch Data" to retrieve all records from the database</li>
+          <li>Click "Send Data" to add a new record to the database</li>
+          <li>Data is automatically persisted in Supabase</li>
         </ol>
       </div>
     </div>

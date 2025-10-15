@@ -39,7 +39,7 @@ function App() {
   return (
     <div style={{maxWidth: 900, margin: '4rem auto', fontFamily: 'Inter, system-ui, Arial', padding: '0 2rem'}}>
       <h1>Game Frontend</h1>
-      <p>Connected to Supabase database</p>
+      <p>Using local in-memory storage</p>
 
       <div style={{marginBottom: '2rem'}}>
         <button
@@ -96,7 +96,7 @@ function App() {
           borderRadius: '4px',
           marginBottom: '1rem'
         }}>
-          <strong>Data from database:</strong>
+          <strong>Local data:</strong>
           <pre style={{marginTop: '0.5rem', fontSize: '0.9em'}}>
             {JSON.stringify(data, null, 2)}
           </pre>
@@ -106,9 +106,9 @@ function App() {
       <div style={{marginTop: '2rem', fontSize: '0.9em', color: '#666'}}>
         <h3>Instructions:</h3>
         <ol>
-          <li>Click "Fetch Data" to retrieve all records from the database</li>
-          <li>Click "Send Data" to add a new record to the database</li>
-          <li>Data is automatically persisted in Supabase</li>
+          <li>Click "Fetch Data" to retrieve stored items</li>
+          <li>Click "Send Data" to add a new item</li>
+          <li>Data is stored in memory (resets on page refresh)</li>
         </ol>
       </div>
     </div>

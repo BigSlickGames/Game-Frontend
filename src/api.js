@@ -1,57 +1,52 @@
-let localData = [];
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const api = {
-  getData: async () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(localData);
-      }, 300);
-    });
+  createGame: async () => {
+    const { data, error } = await supabase
+      .from('games')
+      .insert({})
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
   },
 
-  postData: async (payload) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const newItem = {
-          id: Date.now().toString(),
-          message: payload.message,
-          created_at: new Date().toISOString(),
-        };
-        localData.push(newItem);
-        resolve([newItem]);
-      }, 300);
-    });
+  getGame: async (id) => {
+    const { data, error } = await supabase
+      .from('games')
+      .select('*')
+      .eq('id', id)
+      .maybeSingle();
+
+    if (error) throw error;
+    return data;
   },
 
-  updateData: async (id, payload) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const index = localData.findIndex(item => item.id === id);
-        if (index !== -1) {
-          localData[index] = {
-            ...localData[index],
-            message: payload.message,
-            updated_at: new Date().toISOString(),
-          };
-          resolve([localData[index]]);
-        } else {
-          reject(new Error('Item not found'));
-        }
-      }, 300);
-    });
+  updateGame: async (id, updates) => {
+    const { data, error } = await supabase
+      .from('games')
+      .update({ ...updates, updated_at: new Date().toISOString() })
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
   },
 
-  deleteData: async (id) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const index = localData.findIndex(item => item.id === id);
-        if (index !== -1) {
-          localData.splice(index, 1);
-          resolve({ success: true });
-        } else {
-          reject(new Error('Item not found'));
-        }
-      }, 300);
-    });
-  },
+  deleteGame: async (id) => {
+    const { error } = await supabase
+      .from('games')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+    return { success: true };
+  }
 };
